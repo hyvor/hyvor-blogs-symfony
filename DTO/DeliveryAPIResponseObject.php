@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyvor\BlogBundle\DTO;
+namespace Hyvor\BlogsBundle\DTO;
 
 class DeliveryAPIResponseObject
 {

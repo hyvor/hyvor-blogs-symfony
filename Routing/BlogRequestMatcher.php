@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Routing;
+namespace Hyvor\BlogsBundle\Routing;
 
-use Hyvor\BlogBundle\Controller\BlogController;
-use Hyvor\BlogBundle\Exception\UnknownSubdomainException;
-use Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry;
+use Hyvor\BlogsBundle\Controller\BlogController;
+use Hyvor\BlogsBundle\Exception\UnknownSubdomainException;
+use Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;

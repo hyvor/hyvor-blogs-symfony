@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle;
+namespace Hyvor\BlogsBundle;
 
-use Hyvor\BlogBundle\DependencyInjection\CompilerPass\ConfigurationPass;
+use Hyvor\BlogsBundle\DependencyInjection\CompilerPass\ConfigurationPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class HyvorBlogBundle extends Bundle
+class HyvorBlogsBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

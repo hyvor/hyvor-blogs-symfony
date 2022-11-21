@@ -1,8 +1,8 @@
 <?php
 
-namespace Hyvor\BlogBundle\Tests\Unit\Service\Cache;
+namespace Hyvor\BlogsBundle\Tests\Unit\Service\Cache;
 
-use Hyvor\BlogBundle\Service\Cache\CacheKeyProvider;
+use Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider;
 use PHPUnit\Framework\TestCase;
 
 class CacheKeyProviderTest extends TestCase

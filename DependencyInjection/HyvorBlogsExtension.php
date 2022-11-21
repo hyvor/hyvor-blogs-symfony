@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\DependencyInjection;
+namespace Hyvor\BlogsBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class HyvorBlogExtension extends Extension
+class HyvorBlogsExtension extends Extension
 {
     public const PARAMETER_BLOGS = 'hyvor_blog.config.blogs';
     public const PARAMETER_BLOGS_BASE_URL = 'hyvor_blog.config.blogs_base_url';

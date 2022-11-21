@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Routing;
+namespace Hyvor\BlogsBundle\Routing;
 
-use Hyvor\BlogBundle\Controller\WebhookController;
+use Hyvor\BlogsBundle\Controller\WebhookController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;

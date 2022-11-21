@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\EventListener;
+namespace Hyvor\BlogsBundle\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

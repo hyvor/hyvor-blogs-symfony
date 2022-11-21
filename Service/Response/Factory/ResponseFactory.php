@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Response\Factory;
+namespace Hyvor\BlogsBundle\Service\Response\Factory;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 

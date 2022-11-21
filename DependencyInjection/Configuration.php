@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\DependencyInjection;
+namespace Hyvor\BlogsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('hyvor_blog');
+        $treeBuilder = new TreeBuilder('hyvor_blogs');
         $treeBuilder->getRootNode()
             ->children()
             ->scalarNode(self::KEY_DEFAULT_CACHE_POOL)

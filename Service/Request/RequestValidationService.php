@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Request;
+namespace Hyvor\BlogsBundle\Service\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 

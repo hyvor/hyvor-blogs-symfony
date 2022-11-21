@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Configuration\Registry;
+namespace Hyvor\BlogsBundle\Service\Configuration\Registry;
 
-use Hyvor\BlogBundle\Configuration\Configuration;
-use Hyvor\BlogBundle\Exception\UnknownSubdomainException;
+use Hyvor\BlogsBundle\Configuration\Configuration;
+use Hyvor\BlogsBundle\Exception\UnknownSubdomainException;
 
 class ConfigurationRegistry
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Controller;
+namespace Hyvor\BlogsBundle\Controller;
 
-use Hyvor\BlogBundle\Exception\UnknownSubdomainException;
-use Hyvor\BlogBundle\Service\Cache\CacheService;
-use Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry;
-use Hyvor\BlogBundle\Service\Request\RequestValidationService;
+use Hyvor\BlogsBundle\Exception\UnknownSubdomainException;
+use Hyvor\BlogsBundle\Service\Cache\CacheService;
+use Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry;
+use Hyvor\BlogsBundle\Service\Request\RequestValidationService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

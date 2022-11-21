@@ -1,8 +1,8 @@
 <?php
 
-namespace Hyvor\BlogBundle\Tests\Unit\Service\Cache;
+namespace Hyvor\BlogsBundle\Tests\Unit\Service\Cache;
 
-use Hyvor\BlogBundle\Service\Cache\CacheRegistry;
+use Hyvor\BlogsBundle\Service\Cache\CacheRegistry;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 

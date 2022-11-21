@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyvor\BlogBundle\Routing;
+namespace Hyvor\BlogsBundle\Routing;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

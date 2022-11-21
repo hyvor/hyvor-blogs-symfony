@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Tests\Functional;
+namespace Hyvor\BlogsBundle\Tests\Functional;
 
-use Hyvor\BlogBundle\HyvorBlogBundle;
+use Hyvor\BlogsBundle\HyvorBlogsBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -19,7 +19,7 @@ class TestKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new HyvorBlogBundle(),
+            new HyvorBlogsBundle(),
         ];
     }
 
@@ -36,7 +36,7 @@ class TestKernel extends Kernel
             ]
         );
         $container->loadFromExtension(
-            'hyvor_blog',
+            'hyvor_blogs',
             [
                 'webhook' => [
                     'path' => '/hyvorblogs/webhook',

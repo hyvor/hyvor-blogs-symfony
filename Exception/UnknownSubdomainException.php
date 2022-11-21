@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Exception;
+namespace Hyvor\BlogsBundle\Exception;
 
 class UnknownSubdomainException extends \RuntimeException
 {

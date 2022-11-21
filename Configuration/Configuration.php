@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Configuration;
+namespace Hyvor\BlogsBundle\Configuration;
 
 class Configuration
 {

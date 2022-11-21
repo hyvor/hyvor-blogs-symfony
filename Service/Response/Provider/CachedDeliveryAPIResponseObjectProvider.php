@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Response\Provider;
+namespace Hyvor\BlogsBundle\Service\Response\Provider;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
-use Hyvor\BlogBundle\Service\Cache\CacheService;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\Service\Cache\CacheService;
 
 class CachedDeliveryAPIResponseObjectProvider implements DeliveryAPIResponseObjectProviderInterface
 {

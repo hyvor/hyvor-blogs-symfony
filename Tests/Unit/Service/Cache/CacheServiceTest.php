@@ -1,11 +1,11 @@
 <?php
 
-namespace Hyvor\BlogBundle\Tests\Unit\Service\Cache;
+namespace Hyvor\BlogsBundle\Tests\Unit\Service\Cache;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
-use Hyvor\BlogBundle\Service\Cache\CacheKeyProvider;
-use Hyvor\BlogBundle\Service\Cache\CacheRegistry;
-use Hyvor\BlogBundle\Service\Cache\CacheService;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider;
+use Hyvor\BlogsBundle\Service\Cache\CacheRegistry;
+use Hyvor\BlogsBundle\Service\Cache\CacheService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Response\Provider;
+namespace Hyvor\BlogsBundle\Service\Response\Provider;
 
 class RequestUrlProvider
 {

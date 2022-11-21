@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Cache;
+namespace Hyvor\BlogsBundle\Service\Cache;
 
 use Psr\Cache\CacheItemPoolInterface;
 

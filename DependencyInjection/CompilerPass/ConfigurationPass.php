@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\DependencyInjection\CompilerPass;
+namespace Hyvor\BlogsBundle\DependencyInjection\CompilerPass;
 
-use Hyvor\BlogBundle\Configuration\Configuration as BlogConfiguration;
-use Hyvor\BlogBundle\DependencyInjection\Configuration;
-use Hyvor\BlogBundle\DependencyInjection\HyvorBlogExtension;
-use Hyvor\BlogBundle\Service\Cache\CacheRegistry;
-use Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry;
+use Hyvor\BlogsBundle\Configuration\Configuration as BlogConfiguration;
+use Hyvor\BlogsBundle\DependencyInjection\Configuration;
+use Hyvor\BlogsBundle\DependencyInjection\HyvorBlogsExtension;
+use Hyvor\BlogsBundle\Service\Cache\CacheRegistry;
+use Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -21,7 +21,7 @@ class ConfigurationPass implements CompilerPassInterface
     {
         $blogConfigurationRegistryDefinition = $container->getDefinition(ConfigurationRegistry::class);
         $cacheRegistryDefinition = $container->getDefinition(CacheRegistry::class);
-        $blogConfigurations = $container->getParameter(HyvorBlogExtension::PARAMETER_BLOGS);
+        $blogConfigurations = $container->getParameter(HyvorBlogsExtension::PARAMETER_BLOGS);
         foreach ($blogConfigurations as $blogConfiguration) {
             $cachePoolDefinition = $this->getCachePoolDefinition(
                 $container,
@@ -50,14 +50,14 @@ class ConfigurationPass implements CompilerPassInterface
     private function getCachePoolDefinition(ContainerBuilder $containerBuilder, ?string $cachePool): Definition
     {
         if ($cachePool === null) {
-            $cachePool = $containerBuilder->getParameter(HyvorBlogExtension::PARAMETER_DEFAULT_CACHE_POOL);
+            $cachePool = $containerBuilder->getParameter(HyvorBlogsExtension::PARAMETER_DEFAULT_CACHE_POOL);
         }
         if (!$containerBuilder->hasDefinition($cachePool)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Default cache pool "%s" is not defined',
                     $containerBuilder->getParameter(
-                        HyvorBlogExtension::PARAMETER_DEFAULT_CACHE_POOL
+                        HyvorBlogsExtension::PARAMETER_DEFAULT_CACHE_POOL
                     )
                 )
             );

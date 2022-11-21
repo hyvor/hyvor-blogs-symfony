@@ -1,8 +1,8 @@
 <?php
 
-namespace Hyvor\BlogBundle\Service\Cache;
+namespace Hyvor\BlogsBundle\Service\Cache;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
 
 class CacheService
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Tests\Functional;
+namespace Hyvor\BlogsBundle\Tests\Functional;
 
-use Hyvor\BlogBundle\Controller\WebhookController;
+use Hyvor\BlogsBundle\Controller\WebhookController;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

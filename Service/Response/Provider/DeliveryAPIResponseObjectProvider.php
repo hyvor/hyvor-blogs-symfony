@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Service\Response\Provider;
+namespace Hyvor\BlogsBundle\Service\Response\Provider;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
-use Hyvor\BlogBundle\Exception\BadResponseException;
-use Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\Exception\BadResponseException;
+use Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

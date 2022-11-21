@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Controller;
+namespace Hyvor\BlogsBundle\Controller;
 
-use Hyvor\BlogBundle\Service\Response\Factory\ResponseFactory;
-use Hyvor\BlogBundle\Service\Response\Provider\DeliveryAPIResponseObjectProviderInterface;
+use Hyvor\BlogsBundle\Service\Response\Factory\ResponseFactory;
+use Hyvor\BlogsBundle\Service\Response\Provider\DeliveryAPIResponseObjectProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

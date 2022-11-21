@@ -1,8 +1,8 @@
 <?php
 
-namespace Hyvor\BlogBundle\Service\Response\Provider;
+namespace Hyvor\BlogsBundle\Service\Response\Provider;
 
-use Hyvor\BlogBundle\DTO\DeliveryAPIResponseObject;
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
 
 interface DeliveryAPIResponseObjectProviderInterface
 {

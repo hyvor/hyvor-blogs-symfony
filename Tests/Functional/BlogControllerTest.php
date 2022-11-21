@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyvor\BlogBundle\Tests\Functional;
+namespace Hyvor\BlogsBundle\Tests\Functional;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Argument;

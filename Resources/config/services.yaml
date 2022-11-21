@@ -5,75 +5,75 @@ parameters:
   hyvor_blog.config.hash_algorithm: 'sha256'
 
 services:
-  Hyvor\BlogBundle\Controller\BlogController:
+  Hyvor\BlogsBundle\Controller\BlogController:
     arguments:
-      - '@Hyvor\BlogBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider'
-      - '@Hyvor\BlogBundle\Service\Response\Factory\ResponseFactory'
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider'
+      - '@Hyvor\BlogsBundle\Service\Response\Factory\ResponseFactory'
     tags: ['controller.service_arguments']
 
-  Hyvor\BlogBundle\Controller\WebhookController:
+  Hyvor\BlogsBundle\Controller\WebhookController:
     arguments:
-      - '@Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry'
-      - '@Hyvor\BlogBundle\Service\Request\RequestValidationService'
-      - '@Hyvor\BlogBundle\Service\Cache\CacheService'
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - '@Hyvor\BlogsBundle\Service\Request\RequestValidationService'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheService'
     tags: ['controller.service_arguments']
 
-  Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry: ~
+  Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry: ~
 
-  Hyvor\BlogBundle\Routing\WebhookRequestMatcher:
+  Hyvor\BlogsBundle\Routing\WebhookRequestMatcher:
     arguments:
       - '%hyvor_blog.config.webhook_path%'
       - !php/const Symfony\Component\HttpFoundation\Request::METHOD_POST
 
-  Hyvor\BlogBundle\Routing\BlogRequestMatcher:
+  Hyvor\BlogsBundle\Routing\BlogRequestMatcher:
     arguments:
-      - '@Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
       - !php/const Symfony\Component\HttpFoundation\Request::METHOD_GET
 
-  Hyvor\BlogBundle\Routing\CompositeRequestMatcher:
+  Hyvor\BlogsBundle\Routing\CompositeRequestMatcher:
     calls:
-      - ['addRequestMatcher', ['@Hyvor\BlogBundle\Routing\WebhookRequestMatcher']]
-      - ['addRequestMatcher', ['@Hyvor\BlogBundle\Routing\BlogRequestMatcher']]
+      - ['addRequestMatcher', ['@Hyvor\BlogsBundle\Routing\WebhookRequestMatcher']]
+      - ['addRequestMatcher', ['@Hyvor\BlogsBundle\Routing\BlogRequestMatcher']]
 
-  Hyvor\BlogBundle\EventListener\RouterListener:
+  Hyvor\BlogsBundle\EventListener\RouterListener:
     arguments:
-      - '@Hyvor\BlogBundle\Routing\CompositeRequestMatcher'
+      - '@Hyvor\BlogsBundle\Routing\CompositeRequestMatcher'
       - '@logger'
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 64 }
 
-  Hyvor\BlogBundle\Service\Cache\CacheRegistry: ~
+  Hyvor\BlogsBundle\Service\Cache\CacheRegistry: ~
 
-  Hyvor\BlogBundle\Service\Cache\CacheKeyProvider:
+  Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider:
     arguments:
       - '%hyvor_blog.config.cache_key_template%'
 
-  Hyvor\BlogBundle\Service\Cache\CacheService:
+  Hyvor\BlogsBundle\Service\Cache\CacheService:
     arguments:
-      - '@Hyvor\BlogBundle\Service\Cache\CacheRegistry'
-      - '@Hyvor\BlogBundle\Service\Cache\CacheKeyProvider'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheRegistry'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider'
 
-  Hyvor\BlogBundle\Service\Response\Provider\RequestUrlProvider:
+  Hyvor\BlogsBundle\Service\Response\Provider\RequestUrlProvider:
     arguments:
       - '%hyvor_blog.config.url_template%'
 
-  Hyvor\BlogBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider:
+  Hyvor\BlogsBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider:
     arguments:
       - '@hyvor_blog.service.http_client'
-      - '@Hyvor\BlogBundle\Service\Response\Provider\RequestUrlProvider'
-      - '@Hyvor\BlogBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\RequestUrlProvider'
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
 
-  Hyvor\BlogBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider:
+  Hyvor\BlogsBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider:
     arguments:
-      - '@Hyvor\BlogBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider'
-      - '@Hyvor\BlogBundle\Service\Cache\CacheService'
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheService'
 
-  Hyvor\BlogBundle\Service\Request\RequestValidationService:
+  Hyvor\BlogsBundle\Service\Request\RequestValidationService:
     arguments:
       - '%hyvor_blog.config.hash_algorithm%'
       - '%hyvor_blog.config.hash_header%'
 
-  Hyvor\BlogBundle\Service\Response\Factory\ResponseFactory: ~
+  Hyvor\BlogsBundle\Service\Response\Factory\ResponseFactory: ~
 
   hyvor_blog.service.http_client:
     public: true
