@@ -1,0 +1,24 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.2.5",
+        "ext-ctype": "*",
+        "ext-json": "*",
+        "symfony/framework-bundle": "^5.0|^6.0",
+        "symfony/http-client": "^5.0|^6.0",
+        "symfony/runtime": "^5.0|^6.0",
+        "symfony/yaml": "^5.0|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyvor\\BlogBundle\\": "./"
+        }
+    },
+    "require-dev": {
+        "phpspec/prophecy": "^1.15",
+        "symfony/test-pack": "^1.0"
+    }
+}
