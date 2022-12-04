@@ -16,7 +16,7 @@ class RequestUrlProvider
         $this->urlTemplate = $urlTemplate;
     }
 
-    public function getRequestUrl(string $subdomain) : string
+    public function getRequestUrl(string $subdomain): string
     {
         return sprintf($this->urlTemplate, $subdomain);
     }

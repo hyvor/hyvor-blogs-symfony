@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResponseFactory
 {
-    public function create(DeliveryAPIResponseObject $responseObject) : Response
+    public function create(DeliveryAPIResponseObject $responseObject): Response
     {
         if ($responseObject->type === DeliveryAPIResponseObject::TYPE_FILE) {
             return new Response(
-                base64_decode($responseObject->content),
+                base64_decode((string) $responseObject->content),
                 $responseObject->status,
                 [
                     'Content-Type' => $responseObject->mime_type,
@@ -22,6 +22,6 @@ class ResponseFactory
             );
         }
 
-        return new RedirectResponse($responseObject->to, $responseObject->status);
+        return new RedirectResponse((string) $responseObject->to, $responseObject->status);
     }
 }

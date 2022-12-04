@@ -26,9 +26,14 @@ class CacheService
         $this->cacheKeyProvider = $cacheKeyProvider;
     }
 
-    public function set(string $subdomain, string $path, DeliveryAPIResponseObject $response) : void
+    public function set(string $subdomain, string $path, DeliveryAPIResponseObject $response): void
     {
-        $this->saveToCache($subdomain, $path, json_encode($response));
+        $encodedResponse = json_encode($response);
+        if ($encodedResponse === false) {
+            throw new \InvalidArgumentException('Unable to encode response');
+        }
+
+        $this->saveToCache($subdomain, $path, $encodedResponse);
     }
 
     public function get(string $subdomain, string $path): ?DeliveryAPIResponseObject
@@ -44,14 +49,14 @@ class CacheService
         }
 
         $at = $response->at;
-        $lastCacheAllClearedAt = $this->getFromCache($subdomain,self::LAST_ALL_CACHE_CLEARED_AT) ?? 0;
+        $lastCacheAllClearedAt = $this->getFromCache($subdomain, self::LAST_ALL_CACHE_CLEARED_AT) ?? 0;
         if ($at < $lastCacheAllClearedAt) {
             return null;
         }
 
         if (
-            $response->type === DeliveryAPIResponseObject::TYPE_FILE &&
-            $response->file_type === DeliveryAPIResponseObject::FILE_TYPE_TEMPLATE
+            $response->type === DeliveryAPIResponseObject::TYPE_FILE
+            && $response->file_type === DeliveryAPIResponseObject::FILE_TYPE_TEMPLATE
         ) {
             $templateCacheClearedAt = $this->getFromCache($subdomain, self::LAST_TEMPLATE_CACHE_CLEARED_AT) ?? 0;
             if ($at < $templateCacheClearedAt) {
@@ -62,27 +67,27 @@ class CacheService
         return $response;
     }
 
-    public function clearSingleCache(string $subdomain, string $path) : void
+    public function clearSingleCache(string $subdomain, string $path): void
     {
         $cachePool = $this->cacheRegistry->getCachePool($subdomain);
         $cachePool->deleteItem($this->cacheKeyProvider->getCacheKey($subdomain, $path));
     }
 
-    public function clearTemplateCache(string $subdomain) : void
+    public function clearTemplateCache(string $subdomain): void
     {
         $this->saveToCache(
             $subdomain,
             self::LAST_TEMPLATE_CACHE_CLEARED_AT,
-            (new \DateTimeImmutable())->getTimestamp()
+            (string) (new \DateTimeImmutable())->getTimestamp()
         );
     }
 
-    public function clearAllCache(string $subdomain) : void
+    public function clearAllCache(string $subdomain): void
     {
         $this->saveToCache(
             $subdomain,
             self::LAST_ALL_CACHE_CLEARED_AT,
-            (new \DateTimeImmutable())->getTimestamp()
+            (string) (new \DateTimeImmutable())->getTimestamp()
         );
     }
 

@@ -13,7 +13,7 @@ class CacheRegistry
      */
     private $cachePools = [];
 
-    public function getCachePool(string $subdomain) : CacheItemPoolInterface
+    public function getCachePool(string $subdomain): CacheItemPoolInterface
     {
         if (!isset($this->cachePools[$subdomain])) {
             throw new \InvalidArgumentException(

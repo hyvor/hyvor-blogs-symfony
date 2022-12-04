@@ -16,26 +16,26 @@ class BlogRequestMatcher implements RequestMatcherInterface
     /**
      * @var ConfigurationRegistry
      */
-    private $blogConfigurationRegistry;
+    private $configurationRegistry;
 
     /**
      * @var string
      */
     private $httpMethod;
 
-    public function __construct(ConfigurationRegistry $blogConfigurationRegistry, string $httpMethod)
+    public function __construct(ConfigurationRegistry $configurationRegistry, string $httpMethod)
     {
-        $this->blogConfigurationRegistry = $blogConfigurationRegistry;
+        $this->configurationRegistry = $configurationRegistry;
         $this->httpMethod = $httpMethod;
     }
 
     public function matchRequest(Request $request): array
     {
-        if ($request->getMethod() !== $this->httpMethod) {
+        if ($request->getRealMethod() !== $this->httpMethod) {
             throw new ResourceNotFoundException();
         }
         try {
-            $blogConfiguration = $this->blogConfigurationRegistry->getConfiguration($request->getHost());
+            $blogConfiguration = $this->configurationRegistry->getConfiguration($request->getHost());
         } catch (UnknownSubdomainException $exception) {
             throw new ResourceNotFoundException();
         }
@@ -56,7 +56,7 @@ class BlogRequestMatcher implements RequestMatcherInterface
             $path = substr($path, strlen($basePath));
             return [
                 '_controller' => BlogController::class,
-                'path' => '/'. $path,
+                'path' => '/' . $path,
             ];
         }
 

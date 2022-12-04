@@ -17,15 +17,19 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class ConfigurationPass implements CompilerPassInterface
 {
+    /**
+     * @return void
+     */
     public function process(ContainerBuilder $container)
     {
         $blogConfigurationRegistryDefinition = $container->getDefinition(ConfigurationRegistry::class);
         $cacheRegistryDefinition = $container->getDefinition(CacheRegistry::class);
+        /** @var array<string, array<string, string>> $blogConfigurations */
         $blogConfigurations = $container->getParameter(HyvorBlogsExtension::PARAMETER_BLOGS);
         foreach ($blogConfigurations as $blogConfiguration) {
             $cachePoolDefinition = $this->getCachePoolDefinition(
                 $container,
-                    $blogConfiguration[Configuration::KEY_BLOGS_CACHE_POOL] ?? null
+                $blogConfiguration[Configuration::KEY_BLOGS_CACHE_POOL] ?? null
             );
             $cacheRegistryDefinition->addMethodCall(
                 'addCachePool',
@@ -50,21 +54,29 @@ class ConfigurationPass implements CompilerPassInterface
     private function getCachePoolDefinition(ContainerBuilder $containerBuilder, ?string $cachePool): Definition
     {
         if ($cachePool === null) {
+            /** @var string $cachePool */
             $cachePool = $containerBuilder->getParameter(HyvorBlogsExtension::PARAMETER_DEFAULT_CACHE_POOL);
         }
         if (!$containerBuilder->hasDefinition($cachePool)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Default cache pool "%s" is not defined',
-                    $containerBuilder->getParameter(
-                        HyvorBlogsExtension::PARAMETER_DEFAULT_CACHE_POOL
-                    )
+                    'Cache pool "%s" is not defined',
+                    $cachePool
                 )
             );
         }
         $definition = $containerBuilder->getDefinition($cachePool);
         $parentDefinition = $this->getParentDefinition($containerBuilder, $definition);
-        if (!is_subclass_of($parentDefinition->getClass(), CacheItemPoolInterface::class)) {
+        $parentDefinitionClass = $parentDefinition->getClass();
+        if ($parentDefinitionClass === null) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Definition "%s" has no class',
+                    $cachePool
+                )
+            );
+        }
+        if (!is_subclass_of($parentDefinitionClass, CacheItemPoolInterface::class)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Cache pool "%s" is not an instance of "%s"',

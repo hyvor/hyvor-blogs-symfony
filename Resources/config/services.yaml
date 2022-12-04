@@ -22,6 +22,7 @@ services:
 
   Hyvor\BlogsBundle\Routing\WebhookRequestMatcher:
     arguments:
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
       - '%hyvor_blog.config.webhook_path%'
       - !php/const Symfony\Component\HttpFoundation\Request::METHOD_POST
 

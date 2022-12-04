@@ -62,7 +62,11 @@ class BlogControllerTest extends WebTestCase
                 )
             );
         $this->httpClientMock
-            ->request('GET', 'https://blogs.hyvor.com/api/delivery/v0/localhost', ['query' => ['path' => '/', 'api_key' => 'your-delivery-api-key']])
+            ->request(
+                'GET',
+                'https://blogs.hyvor.com/api/delivery/v0/localhost',
+                ['query' => ['path' => '/', 'api_key' => 'your-delivery-api-key']]
+            )
             ->willReturn($responseMock)
             ->shouldBeCalledOnce();
         $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2F')->isHit());
@@ -91,7 +95,11 @@ class BlogControllerTest extends WebTestCase
                 )
             );
         $this->httpClientMock
-            ->request('GET', 'https://blogs.hyvor.com/api/delivery/v0/localhost', ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']])
+            ->request(
+                'GET',
+                'https://blogs.hyvor.com/api/delivery/v0/localhost',
+                ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']]
+            )
             ->willReturn($responseMock)
             ->shouldBeCalledOnce();
         $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());
@@ -118,7 +126,11 @@ class BlogControllerTest extends WebTestCase
                 )
             );
         $this->httpClientMock
-            ->request('GET', 'https://blogs.hyvor.com/api/delivery/v0/localhost', ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']])
+            ->request(
+                'GET',
+                'https://blogs.hyvor.com/api/delivery/v0/localhost',
+                ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']]
+            )
             ->willReturn($responseMock)
             ->shouldBeCalledOnce();
         $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());
@@ -177,7 +189,11 @@ class BlogControllerTest extends WebTestCase
                 )
             );
         $this->httpClientMock
-            ->request('GET', 'https://blogs.hyvor.com/api/delivery/v0/localhost', ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']])
+            ->request(
+                'GET',
+                'https://blogs.hyvor.com/api/delivery/v0/localhost',
+                ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']]
+            )
             ->willReturn($responseMock)
             ->shouldBeCalledOnce();
         $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());

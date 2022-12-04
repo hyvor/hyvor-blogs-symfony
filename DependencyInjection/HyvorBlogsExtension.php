@@ -16,6 +16,9 @@ class HyvorBlogsExtension extends Extension
     public const PARAMETER_WEBHOOK_PATH = 'hyvor_blog.config.webhook_path';
     public const PARAMETER_DEFAULT_CACHE_POOL = 'hyvor_blog.config.default_cache_pool';
 
+    /**
+     * @return void
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();

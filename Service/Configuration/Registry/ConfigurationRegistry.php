@@ -9,6 +9,9 @@ use Hyvor\BlogsBundle\Exception\UnknownSubdomainException;
 
 class ConfigurationRegistry
 {
+    /**
+     * @var array<string, Configuration>
+     */
     private $blogConfigurations = [];
 
     public function getConfiguration(string $subdomain): Configuration

@@ -22,6 +22,9 @@ class DeliveryAPIResponseObjectProvider implements DeliveryAPIResponseObjectProv
      */
     private $requestUrlProvider;
 
+    /**
+     * @var ConfigurationRegistry
+     */
     private $configurationRegistry;
 
     public function __construct(
@@ -34,7 +37,7 @@ class DeliveryAPIResponseObjectProvider implements DeliveryAPIResponseObjectProv
         $this->configurationRegistry = $configurationRegistry;
     }
 
-    public function getResponseObject(string $subdomain, string $path) : DeliveryAPIResponseObject
+    public function getResponseObject(string $subdomain, string $path): DeliveryAPIResponseObject
     {
         $blogConfiguration = $this->configurationRegistry->getConfiguration($subdomain);
         try {

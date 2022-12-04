@@ -24,7 +24,7 @@ class RequestValidationService
         $this->hashHeader = $hashHeader;
     }
 
-    public function validate(Request $request, string $secret) : bool
+    public function validate(Request $request, string $secret): bool
     {
         $content = (string) $request->getContent();
         $knownHash = hash_hmac($this->hashAlgorithm, $content, $secret);

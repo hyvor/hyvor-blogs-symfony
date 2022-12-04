@@ -9,25 +9,38 @@ class DeliveryAPIResponseObject
     public const FILE_TYPE_TEMPLATE = 'template';
 
     /**
-     * @var 'file'|'redirect'
+     * @var string
      */
     public $type;
 
+    /**
+     * @var int
+     */
     public $at;
 
     /**
-     * @var 'template'|'asset'|'media'
+     * @var string|null
      */
     public $file_type;
 
+    /**
+     * @var string|null
+     */
     public $content;
 
+    /**
+     * @var string|null
+     */
     public $mime_type;
 
-    // for redirect
+    /**
+     * @var string|null
+     */
     public $to;
 
-    // for both
+    /**
+     * @var bool
+     */
     public $cache;
 
     /**

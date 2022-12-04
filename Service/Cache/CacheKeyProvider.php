@@ -16,7 +16,7 @@ class CacheKeyProvider
         $this->cacheKeyTemplate = $cacheKeyTemplate;
     }
 
-    public function getCacheKey(string $subdomain, string $key) : string
+    public function getCacheKey(string $subdomain, string $key): string
     {
         return sprintf($this->cacheKeyTemplate, $subdomain, urlencode($key));
     }

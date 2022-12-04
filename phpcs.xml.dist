@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PSR2" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <file>Controller</file>
+    <file>DependencyInjection</file>
+    <file>DTO</file>
+    <file>EventListener</file>
+    <file>Exception</file>
+    <file>Routing</file>
+    <file>Service</file>
+    <file>Tests</file>
+
+    <rule ref="PSR12"/>
+</ruleset>
