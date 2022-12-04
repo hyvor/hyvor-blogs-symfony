@@ -1,6 +1,8 @@
 {
-    "type": "project",
-    "license": "proprietary",
+    "name": "hyvor/hyvor-blogs-symfony",
+    "description": "For self-hosting a Hyvor Blogs blog on a Symfony application",
+    "type": "library",
+    "license": "MIT",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
