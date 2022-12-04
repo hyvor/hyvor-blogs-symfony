@@ -38,9 +38,7 @@ class TestKernel extends Kernel
         $container->loadFromExtension(
             'hyvor_blogs',
             [
-                'webhook' => [
-                    'path' => '/hyvorblogs/webhook',
-                ],
+                'webhook_path' => '/hyvorblogs/webhook',
                 'blogs' => [
                     [
                         'subdomain' => 'localhost',

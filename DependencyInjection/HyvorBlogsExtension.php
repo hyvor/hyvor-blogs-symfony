@@ -29,7 +29,7 @@ class HyvorBlogsExtension extends Extension
         $container->setParameter(self::PARAMETER_BLOGS, $config[Configuration::SECTION_BLOGS]);
         $container->setParameter(
             self::PARAMETER_WEBHOOK_PATH,
-            $config[Configuration::SECTION_WEBHOOK][Configuration::KEY_WEBHOOK_PATH]
+            $config[Configuration::KEY_WEBHOOK_PATH]
         );
         $container->setParameter(
             self::PARAMETER_DEFAULT_CACHE_POOL,

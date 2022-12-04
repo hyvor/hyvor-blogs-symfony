@@ -10,13 +10,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     public const SECTION_BLOGS = 'blogs';
-    public const SECTION_WEBHOOK = 'webhook';
     public const KEY_BLOGS_SUBDOMAIN = 'subdomain';
     public const KEY_BLOGS_BASE_PATH = 'base_path';
     public const KEY_BLOGS_CACHE_POOL = 'cache_pool';
     public const KEY_BLOGS_DELIVERY_API_KEY = 'delivery_api_key';
     public const KEY_BLOGS_WEBHOOK_SECRET = 'webhook_secret';
-    public const KEY_WEBHOOK_PATH = 'path';
+    public const KEY_WEBHOOK_PATH = 'webhook_path';
     public const KEY_DEFAULT_CACHE_POOL = 'default_cache_pool';
     public const KEY_BLOGS_BASE_URL = 'blogs_base_url';
 
@@ -62,13 +61,9 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
-            ->arrayNode(self::SECTION_WEBHOOK)
-                ->children()
-                    ->scalarNode(self::KEY_WEBHOOK_PATH)
-                        ->defaultValue(self::WEBHOOK_PATH)
-                        ->cannotBeEmpty()
-                    ->end()
-                ->end()
+            ->scalarNode(self::KEY_WEBHOOK_PATH)
+                ->defaultValue(self::WEBHOOK_PATH)
+                ->cannotBeEmpty()
             ->end()
         ->end();
 
