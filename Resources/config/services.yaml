@@ -1,0 +1,82 @@
+parameters:
+  hyvor_blog.config.url_template: 'https://blogs.hyvor.com/api/delivery/v0/%%s'
+  hyvor_blog.config.cache_key_template: 'hyvor_blogs__%%s__%%s'
+  hyvor_blog.config.hash_header: 'X-Signature'
+  hyvor_blog.config.hash_algorithm: 'sha256'
+
+services:
+  Hyvor\BlogsBundle\Controller\BlogController:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider'
+      - '@Hyvor\BlogsBundle\Service\Response\Factory\ResponseFactory'
+    tags: ['controller.service_arguments']
+
+  Hyvor\BlogsBundle\Controller\WebhookController:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - '@Hyvor\BlogsBundle\Service\Request\RequestValidationService'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheService'
+    tags: ['controller.service_arguments']
+
+  Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry: ~
+
+  Hyvor\BlogsBundle\Routing\WebhookRequestMatcher:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - '%hyvor_blog.config.webhook_path%'
+      - !php/const Symfony\Component\HttpFoundation\Request::METHOD_POST
+
+  Hyvor\BlogsBundle\Routing\BlogRequestMatcher:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
+      - !php/const Symfony\Component\HttpFoundation\Request::METHOD_GET
+
+  Hyvor\BlogsBundle\Routing\CompositeRequestMatcher:
+    calls:
+      - ['addRequestMatcher', ['@Hyvor\BlogsBundle\Routing\WebhookRequestMatcher']]
+      - ['addRequestMatcher', ['@Hyvor\BlogsBundle\Routing\BlogRequestMatcher']]
+
+  Hyvor\BlogsBundle\EventListener\RouterListener:
+    arguments:
+      - '@Hyvor\BlogsBundle\Routing\CompositeRequestMatcher'
+      - '@logger'
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, priority: 64 }
+
+  Hyvor\BlogsBundle\Service\Cache\CacheRegistry: ~
+
+  Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider:
+    arguments:
+      - '%hyvor_blog.config.cache_key_template%'
+
+  Hyvor\BlogsBundle\Service\Cache\CacheService:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheRegistry'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheKeyProvider'
+
+  Hyvor\BlogsBundle\Service\Response\Provider\RequestUrlProvider:
+    arguments:
+      - '%hyvor_blog.config.url_template%'
+
+  Hyvor\BlogsBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider:
+    arguments:
+      - '@hyvor_blog.service.http_client'
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\RequestUrlProvider'
+      - '@Hyvor\BlogsBundle\Service\Configuration\Registry\ConfigurationRegistry'
+
+  Hyvor\BlogsBundle\Service\Response\Provider\CachedDeliveryAPIResponseObjectProvider:
+    arguments:
+      - '@Hyvor\BlogsBundle\Service\Response\Provider\DeliveryAPIResponseObjectProvider'
+      - '@Hyvor\BlogsBundle\Service\Cache\CacheService'
+
+  Hyvor\BlogsBundle\Service\Request\RequestValidationService:
+    arguments:
+      - '%hyvor_blog.config.hash_algorithm%'
+      - '%hyvor_blog.config.hash_header%'
+
+  Hyvor\BlogsBundle\Service\Response\Factory\ResponseFactory: ~
+
+  hyvor_blog.service.http_client:
+    public: true
+    class: Symfony\Component\HttpClient\HttpClient
+    factory: ['Symfony\Component\HttpClient\HttpClient', 'create']

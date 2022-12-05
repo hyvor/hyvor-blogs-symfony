@@ -1,0 +1,13 @@
+includes:
+  - ./vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+  level: 8
+  paths:
+    - Controller
+    - DependencyInjection
+    - DTO
+    - EventListener
+    - Exception
+    #- Routing
+    - Service
