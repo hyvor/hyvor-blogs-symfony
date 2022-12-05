@@ -28,4 +28,12 @@ class ConfigurationRegistry
     {
         $this->blogConfigurations[$blogConfiguration->getSubdomain()] = $blogConfiguration;
     }
+
+    /**
+     * @return array<string, Configuration>
+     */
+    public function getConfigurations(): array
+    {
+        return $this->blogConfigurations;
+    }
 }

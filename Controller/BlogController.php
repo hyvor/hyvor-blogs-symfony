@@ -31,15 +31,16 @@ class BlogController
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Request $request, string $path): Response
+    public function __invoke(Request $request, string $subdomain, string $path): Response
     {
         try {
             return $this->responseFactory->create(
                 $this->deliveryAPIResponseObjectProvider->getResponseObject(
-                    $request->getHost(),
+                    $subdomain,
                     $path
                 )
             );
+
         } catch (\Exception $e) {
             return new Response(self::ERROR_MESSAGE);
         }

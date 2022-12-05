@@ -34,30 +34,29 @@ class BlogRequestMatcher implements RequestMatcherInterface
         if ($request->getRealMethod() !== $this->httpMethod) {
             throw new ResourceNotFoundException();
         }
-        try {
-            $blogConfiguration = $this->configurationRegistry->getConfiguration($request->getHost());
-        } catch (UnknownSubdomainException $exception) {
-            throw new ResourceNotFoundException();
-        }
 
-        $path = $request->getPathInfo();
-        $basePath = $blogConfiguration->getBasePath();
-        // Root path
-        if ($path === $basePath) {
-            return [
-                '_controller' => BlogController::class,
-                'path' => '/',
-            ];
-        }
+        foreach ($this->configurationRegistry->getConfigurations() as $configuration) {
+            $path = $request->getPathInfo();
+            $basePath = $configuration->getBasePath();
+            // Root path
+            if ($path === $basePath) {
+                return [
+                    '_controller' => BlogController::class,
+                    'subdomain' => $configuration->getSubdomain(),
+                    'path' => '/',
+                ];
+            }
 
-        // Add trailing slash to path - the base path fragment must be matched exactly
-        $basePath .= '/';
-        if (strpos($path, $basePath) === 0) {
-            $path = substr($path, strlen($basePath));
-            return [
-                '_controller' => BlogController::class,
-                'path' => '/' . $path,
-            ];
+            // Add trailing slash to path - the base path fragment must be matched exactly
+            $basePath .= '/';
+            if (strpos($path, $basePath) === 0) {
+                $path = substr($path, strlen($basePath));
+                return [
+                    '_controller' => BlogController::class,
+                    'subdomain' => $configuration->getSubdomain(),
+                    'path' => '/' . $path,
+                ];
+            }
         }
 
         // Path fragment was not matched exactly

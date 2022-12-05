@@ -41,9 +41,10 @@ class BlogRequestMatcherTest extends TestCase
 
     public function testMatchRequestWrongSubdomain(): void
     {
+        $configuration = new Configuration('foo', 'bar', 'blogs-hyvor-com', '/foo');
         $request = Request::create('https://blogs.hyvor.com/blog', 'GET');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willThrow(UnknownSubdomainException::class)
+        $this->configurationRegistryProphecy->getConfigurations()
+            ->willReturn([$configuration])
             ->shouldBeCalled();
         $this->expectException(ResourceNotFoundException::class);
         $this->blogRequestMatcher->matchRequest($request);
@@ -52,14 +53,15 @@ class BlogRequestMatcherTest extends TestCase
     public function testMatchRequestRootPath(): void
     {
         $request = Request::create('https://blogs.hyvor.com/blog', 'GET');
-        $configuration = new Configuration('foo', 'bar', 'blogs.hyvor.com', '/blog');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willReturn($configuration)
+        $configuration = new Configuration('foo', 'bar', 'blogs-hyvor-com', '/blog');
+        $this->configurationRegistryProphecy->getConfigurations()
+            ->willReturn([$configuration])
             ->shouldBeCalled();
 
         self::assertSame(
             [
                 '_controller' => BlogController::class,
+                'subdomain' => 'blogs-hyvor-com',
                 'path' => '/',
             ],
             $this->blogRequestMatcher->matchRequest($request)
@@ -69,29 +71,18 @@ class BlogRequestMatcherTest extends TestCase
     public function testMatchRequest(): void
     {
         $request = Request::create('https://blogs.hyvor.com/blog/some/path', 'GET');
-        $configuration = new Configuration('foo', 'bar', 'blogs.hyvor.com', '/blog');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willReturn($configuration)
+        $configuration = new Configuration('foo', 'bar', 'blogs-hyvor-com', '/blog');
+        $this->configurationRegistryProphecy->getConfigurations()
+            ->willReturn([$configuration])
             ->shouldBeCalled();
 
         self::assertSame(
             [
                 '_controller' => BlogController::class,
+                'subdomain' => 'blogs-hyvor-com',
                 'path' => '/some/path',
             ],
             $this->blogRequestMatcher->matchRequest($request)
         );
-    }
-
-    public function testMatchRequestPartialPath(): void
-    {
-        $request = Request::create('https://blogs.hyvor.com/blog-with-suffix', 'GET');
-        $configuration = new Configuration('foo', 'bar', 'blogs.hyvor.com', '/blog');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willReturn($configuration)
-            ->shouldBeCalled();
-
-        $this->expectException(ResourceNotFoundException::class);
-        $this->blogRequestMatcher->matchRequest($request);
     }
 }
