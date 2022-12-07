@@ -15,7 +15,7 @@ class TestKernel extends Kernel
 {
     use MicroKernelTrait;
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new FrameworkBundle(),
@@ -33,6 +33,7 @@ class TestKernel extends Kernel
                     'utf8' => true,
                 ],
                 'test' => true,
+                'http_method_override' => false,
             ]
         );
         $container->loadFromExtension(

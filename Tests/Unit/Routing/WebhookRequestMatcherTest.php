@@ -17,20 +17,13 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class WebhookRequestMatcherTest extends TestCase
 {
     /**
-     * @var ConfigurationRegistry|ObjectProphecy
-     */
-    private $configurationRegistryProphecy;
-
-    /**
      * @var WebhookRequestMatcher
      */
     private $webhookRequestMatcher;
 
     protected function setUp(): void
     {
-        $this->configurationRegistryProphecy = $this->prophesize(ConfigurationRegistry::class);
         $this->webhookRequestMatcher = new WebhookRequestMatcher(
-            $this->configurationRegistryProphecy->reveal(),
             '/hyvorblogs/webhook',
             'POST'
         );
@@ -50,28 +43,9 @@ class WebhookRequestMatcherTest extends TestCase
         $this->webhookRequestMatcher->matchRequest($request);
     }
 
-    public function testMatchRequestWrongSubdomain(): void
-    {
-        $request = Request::create('https://blogs.hyvor.com/hyvorblogs/webhook', 'POST');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willThrow(UnknownSubdomainException::class)
-            ->shouldBeCalled();
-        $this->expectException(ResourceNotFoundException::class);
-        $this->webhookRequestMatcher->matchRequest($request);
-    }
-
     public function testMatchRequest(): void
     {
-        $configuration = new Configuration(
-            'foo',
-            'bar',
-            'blogs.hyvor.com',
-            '/hyvorblogs/webhook'
-        );
         $request = Request::create('https://blogs.hyvor.com/hyvorblogs/webhook', 'POST');
-        $this->configurationRegistryProphecy->getConfiguration('blogs.hyvor.com')
-            ->willReturn($configuration)
-            ->shouldBeCalled();
 
         self::assertSame(
             [

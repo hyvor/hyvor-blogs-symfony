@@ -14,11 +14,6 @@ use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 class WebhookRequestMatcher implements RequestMatcherInterface
 {
     /**
-     * @var ConfigurationRegistry
-     */
-    private $configurationRegistry;
-
-    /**
      * @var string
      */
     private $webhookPath;
@@ -28,9 +23,8 @@ class WebhookRequestMatcher implements RequestMatcherInterface
      */
     private $httpMethod;
 
-    public function __construct(ConfigurationRegistry $configurationRegistry, string $webhookPath, string $httpMethod)
+    public function __construct(string $webhookPath, string $httpMethod)
     {
-        $this->configurationRegistry = $configurationRegistry;
         $this->webhookPath = $webhookPath;
         $this->httpMethod = $httpMethod;
     }
@@ -41,14 +35,8 @@ class WebhookRequestMatcher implements RequestMatcherInterface
             throw new ResourceNotFoundException();
         }
 
-        try {
-            $this->configurationRegistry->getConfiguration($request->getHost());
-            return [
+        return [
                 '_controller' => WebhookController::class,
-            ];
-        } catch (UnknownSubdomainException $exception) {
-        }
-
-        throw new ResourceNotFoundException();
+        ];
     }
 }
