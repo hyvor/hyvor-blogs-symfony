@@ -9,6 +9,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class WebhookControllerTest extends WebTestCase
 {
@@ -22,7 +23,7 @@ class WebhookControllerTest extends WebTestCase
      */
     protected $client;
 
-    protected static function createKernel(array $options = [])
+    protected static function createKernel(array $options = []): KernelInterface
     {
         return new TestKernel('test', false);
     }

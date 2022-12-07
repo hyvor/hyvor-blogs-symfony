@@ -26,3 +26,12 @@ hyvor_blogs:
         webhook_secret: '**********' # Webhook secret (create one in the Hyvor Blog Console)
         cache_pool: cache.app # Cache pool to use for caching the blog content. By default, it uses the app cache pool
 ```
+Clear the cache:
+```bash
+php bin/console cache:clear
+```
+
+(and in case of production environment)
+```bash
+php bin/console cache:clear --env=prod
+```
