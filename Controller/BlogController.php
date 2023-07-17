@@ -40,7 +40,6 @@ class BlogController
                     $path
                 )
             );
-
         } catch (\Exception $e) {
             return new Response(self::ERROR_MESSAGE);
         }

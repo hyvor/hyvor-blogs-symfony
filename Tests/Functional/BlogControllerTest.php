@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyvor\BlogsBundle\Tests\Functional;
 
+use Hyvor\BlogsBundle\DTO\DeliveryAPIResponseObject;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Argument;
 use Psr\Cache\CacheItemPoolInterface;
@@ -202,6 +203,42 @@ class BlogControllerTest extends WebTestCase
         $response = $this->client->getResponse();
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertEquals('Test Index Page', $response->getContent());
+        $this->assertEquals(DeliveryAPIResponseObject::DEFAULT_CACHE_CONTROL, $response->headers->get('Cache-Control'));
+        $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());
+    }
+
+    public function testCacheControlHeaderWasSet()
+    {
+        $responseMock = $this->createMock(ResponseInterface::class);
+        $responseMock->method('getContent')
+            ->willReturn(
+                json_encode(
+                    [
+                        'type' => 'file',
+                        'at' => (new \DateTimeImmutable())->getTimestamp(),
+                        'cache' => false,
+                        'cache_control' => 'max-age=3600, public',
+                        'status' => 201,
+                        'file_type' => 'template',
+                        'content' => base64_encode('Test Index Page'),
+                        'mime_type' => 'text/test'
+                    ]
+                )
+            );
+        $this->httpClientMock
+            ->request(
+                'GET',
+                'https://blogs.hyvor.com/api/delivery/v0/localhost',
+                ['query' => ['path' => '/path', 'api_key' => 'your-delivery-api-key']]
+            )
+            ->willReturn($responseMock)
+            ->shouldBeCalledOnce();
+        $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());
+        $this->client->request('GET', '/blog/path');
+        $response = $this->client->getResponse();
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals('Test Index Page', $response->getContent());
+        $this->assertEquals('max-age=3600, public', $response->headers->get('Cache-Control'));
         $this->assertFalse($this->cachePool->getItem('hyvor_blogs__localhost__%2Fpath')->isHit());
     }
 }

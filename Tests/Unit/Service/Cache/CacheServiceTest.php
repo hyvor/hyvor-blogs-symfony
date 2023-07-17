@@ -45,7 +45,9 @@ class CacheServiceTest extends TestCase
         $this->expectSave(
             'subdomain',
             'key',
-            '{"type":null,"at":null,"file_type":null,"content":null,"mime_type":null,"to":null,"cache":null,"status":null}'
+            // @codingStandardsIgnoreStart
+            '{"type":null,"at":null,"file_type":null,"content":null,"mime_type":null,"to":null,"cache":null,"cache_control":null,"status":null}'
+            // @codingStandardsIgnoreEnd
         );
         $this->cacheService->set('subdomain', 'key', $deliveryAPIResponseObject);
     }

@@ -18,6 +18,7 @@ class ResponseFactory
                 $responseObject->status,
                 [
                     'Content-Type' => $responseObject->mime_type,
+                    'Cache-Control' => $responseObject->cache_control,
                 ]
             );
         }
