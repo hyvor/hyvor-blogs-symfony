@@ -7,6 +7,7 @@ class DeliveryAPIResponseObject
     public const TYPE_FILE = 'file';
     public const TYPE_REDIRECT = 'redirect';
     public const FILE_TYPE_TEMPLATE = 'template';
+    public const DEFAULT_CACHE_CONTROL = 'no-cache, private';
 
     /**
      * @var string
@@ -44,6 +45,11 @@ class DeliveryAPIResponseObject
     public $cache;
 
     /**
+     * @var string|null
+     */
+    public $cache_control;
+
+    /**
      * @var int
      */
     public $status;
@@ -58,6 +64,7 @@ class DeliveryAPIResponseObject
         $obj->at = $data['at'];
         $obj->cache = $data['cache'];
         $obj->status = $data['status'];
+        $obj->cache_control = $data['cache_control'] ?? self::DEFAULT_CACHE_CONTROL;
 
         if ($data['type'] === 'file') {
             $obj->file_type = $data['file_type'];
